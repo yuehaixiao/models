@@ -1034,7 +1034,8 @@ class BlazeFaceTrainFeed(DataFeed):
                  fields=['image', 'gt_box', 'gt_label'],
                  #image_shape=[3, 128, 128],
                  #image_shape=[3, 300, 300],
-                 image_shape=[3, 512, 512],
+                 #image_shape=[3, 512, 512],
+                 image_shape=[3, 640, 640],
                  sample_transforms=[
                      DecodeImage(to_rgb=True, with_mixup=False),
                      NormalizeBox(),

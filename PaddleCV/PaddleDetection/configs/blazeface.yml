@@ -2,17 +2,17 @@ architecture: BlazeFace
 train_feed: BlazeFaceTrainFeed
 eval_feed: BlazeFaceEvalFeed
 test_feed: BlazeFaceTestFeed
-pretrain_weights:
+pretrain_weights: output_blazelite_512x512_priorbox_190909/blazeface/model_final
 use_gpu: true
 max_iters: 180000
 snapshot_iter: 10000
 log_smooth_window: 20
 log_iter: 20
 metric: WIDERFACE
-save_dir: output_blazelite_512x512_priorbox_190909
+save_dir: output_blazelite_512x512_priorbox_190911
 eval_mode: matlab
 multi_scale: true
-weights: output/balzeface/model_final/
+weights: output_blazelite_512x512_priorbox_190909/blazeface/model_final
 num_classes: 2
 
 BlazeFace:

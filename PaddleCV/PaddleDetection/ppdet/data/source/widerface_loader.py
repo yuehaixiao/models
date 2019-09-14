@@ -18,10 +18,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def load(anno_path,
-         sample_num=-1,
-         cname2cid=None,
-         with_background=True):
+def load(anno_path, sample_num=-1, cname2cid=None, with_background=True):
     """
     Load WiderFace records with 'anno_path'
 
@@ -109,7 +106,7 @@ def _load_file_list(input_txt):
             file_dict[num_class] = []
             file_dict[num_class].append(line_txt)
         if '.jpg' not in line_txt:
-            if len(line_txt) >= 4:
+            if len(line_txt) >= 6:
                 split_str = line_txt.split(' ')
                 x1_min = float(split_str[0])
                 y1_min = float(split_str[1])
@@ -125,9 +122,7 @@ def _load_file_list(input_txt):
 
 
 def widerface_label(with_background=True):
-    labels_map = {
-	    'face': 1
-    }
+    labels_map = {'face': 1}
     if not with_background:
         labels_map = {k: v - 1 for k, v in labels_map.items()}
     return labels_map

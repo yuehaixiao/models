@@ -44,7 +44,7 @@ from ppdet.data.data_feed import create_reader
 from ppdet.utils.eval_utils import parse_fetches
 from ppdet.utils.cli import ArgsParser
 from ppdet.utils.check import check_gpu
-from ppdet.utils.visualizer import visualize_results
+#from ppdet.utils.visualizer import visualize_results
 import ppdet.utils.checkpoint as checkpoint
 
 import logging
@@ -235,10 +235,10 @@ def main():
         for im_id in im_ids:
             image_path = imid2path[int(im_id)]
             image = Image.open(image_path).convert('RGB')
-            image = visualize_results(image,
-                                      int(im_id), catid2name,
-                                      FLAGS.draw_threshold, bbox_results,
-                                      mask_results)
+            #image = visualize_results(image,
+            #                          int(im_id), catid2name,
+            #                          FLAGS.draw_threshold, bbox_results,
+            #                          mask_results)
             save_name = get_save_image_name(FLAGS.output_dir, image_path)
             logger.info("Detection bbox results save in {}".format(save_name))
             image.save(save_name, quality=95)
