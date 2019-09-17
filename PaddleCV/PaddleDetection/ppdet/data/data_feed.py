@@ -51,6 +51,9 @@ def _prepare_data_config(feed, args_path):
     if dataset_home:
         annotation = getattr(feed.dataset, 'annotation', None)
         image_dir = getattr(feed.dataset, 'image_dir', None)
+        print('dataset_home:', dataset_home)
+        print('annotation:', annotation)
+        print('image_dir:', image_dir)
         dataset_dir = get_dataset_path(dataset_home, annotation, image_dir)
         if annotation:
             feed.dataset.annotation = os.path.join(dataset_dir, annotation)
@@ -1051,7 +1054,7 @@ class BlazeFaceTrainFeed(DataFeed):
                                 [1, 50, 0.3, 1.0, 0.5, 2.0, 0.9, 0.0],
                                 [1, 50, 0.3, 1.0, 0.5, 2.0, 0.0, 1.0]],
                                satisfy_all=False, avoid_no_bbox=True),
-                     RandomInterpImage(target_size=128),
+                     RandomInterpImage(target_size=640),
                      RandomFlipImage(is_normalized=True),
                      Permute(),
                      NormalizeImage(mean=[104., 117., 123.],
@@ -1093,11 +1096,10 @@ class BlazeFaceEvalFeed(DataFeed):
                                      WIdERFACE_VAL_IMAGE_DIR).__dict__,
             fields=['image', 'im_id', 'im_shape'],
             #image_shape=[3, 128, 128],
-            image_shape=[3, 300, 300],
-            #image_shape=[3, 512, 512],
+            image_shape=[3, 640, 640],
             sample_transforms=[
                 DecodeImage(to_rgb=True, with_mixup=False),
-                ResizeImage(target_size=128, use_cv2=False, interp=1),
+                ResizeImage(target_size=640, use_cv2=False, interp=1),
                 Permute(),
                 NormalizeImage(
                     mean=[104., 117., 123],

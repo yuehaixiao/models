@@ -45,13 +45,16 @@ class BlazeFace(object):
     __inject__ = ['backbone', 'output_decoder']
     __shared__ = ['num_classes']
 
-    def __init__(self,
-                 backbone="BlazeNet",
-                 output_decoder=SSDOutputDecoder().__dict__,
-                 min_sizes=[32., [64., 128., 256.]],
-                 max_sizes=[64., [128., 256., 512.]],
-                 steps=[4., 16.],
-                 num_classes=2):
+    def __init__(
+            self,
+            backbone="BlazeNet",
+            output_decoder=SSDOutputDecoder().__dict__,
+            #min_sizes=[32., [64., 128., 256.]],
+            #max_sizes=[64., [128., 256., 512.]],
+            min_sizes=[[24., 32.], [48., 64., 96., 128., 160., 192.]],
+            max_sizes=None,
+            steps=[8., 16.],
+            num_classes=2):
         super(BlazeFace, self).__init__()
         self.backbone = backbone
         self.num_classes = num_classes
@@ -113,11 +116,11 @@ class BlazeFace(object):
 
         for i, input in enumerate(inputs):
             min_size = self.min_sizes[i]
-            max_size = self.max_sizes[i]
-            if not _is_list_or_tuple_(min_size):
-                min_size = [min_size]
-            if not _is_list_or_tuple_(max_size):
-                max_size = [max_size]
+            #max_size = self.max_sizes[i]
+            #if not _is_list_or_tuple_(min_size):
+            #    min_size = [min_size]
+            #if not _is_list_or_tuple_(max_size):
+            #    max_size = [max_size]
 
             if use_density_prior_box:
                 if i == 0:
@@ -143,7 +146,7 @@ class BlazeFace(object):
                     input,
                     image,
                     min_sizes=min_size,
-                    max_sizes=max_size,
+                    #max_sizes=max_size,
                     steps=[self.steps[i]] * 2,
                     aspect_ratios=[1.],
                     clip=False,
