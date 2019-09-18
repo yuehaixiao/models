@@ -51,7 +51,9 @@ class BlazeFace(object):
             output_decoder=SSDOutputDecoder().__dict__,
             #min_sizes=[32., [64., 128., 256.]],
             #max_sizes=[64., [128., 256., 512.]],
-            min_sizes=[[24., 32.], [48., 64., 96., 128., 160., 192.]],
+            min_sizes=[[12., 16.], [24., 32., 48., 64., 80., 86.]],
+            #min_sizes=[[24., 32.], [48., 64., 96., 128., 160., 192.]],
+            #min_sizes=[[16., 24.], [32., 48., 64., 80., 96., 128.]],
             max_sizes=None,
             steps=[8., 16.],
             num_classes=2):
