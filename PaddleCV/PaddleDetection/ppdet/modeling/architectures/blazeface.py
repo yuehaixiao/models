@@ -51,9 +51,9 @@ class BlazeFace(object):
             output_decoder=SSDOutputDecoder().__dict__,
             #min_sizes=[32., [64., 128., 256.]],
             #max_sizes=[64., [128., 256., 512.]],
-            min_sizes=[[12., 16.], [24., 32., 48., 64., 80., 86.]],
+            #min_sizes=[[12., 16.], [24., 32., 48., 64., 80., 86.]],
             #min_sizes=[[24., 32.], [48., 64., 96., 128., 160., 192.]],
-            #min_sizes=[[16., 24.], [32., 48., 64., 80., 96., 128.]],
+            min_sizes=[[16., 24.], [32., 48., 64., 80., 96., 128.]],
             max_sizes=None,
             steps=[8., 16.],
             num_classes=2):
@@ -129,8 +129,8 @@ class BlazeFace(object):
                     box, var = fluid.layers.density_prior_box(
                         input,
                         image,
-                        densities=[2, 1, 1],
-                        fixed_sizes=[16, 32, 64],
+                        densities=[2, 2],
+                        fixed_sizes=[16., 24.],
                         fixed_ratios=[1.],
                         clip=False,
                         offset=0.5)
@@ -138,8 +138,8 @@ class BlazeFace(object):
                     box, var = fluid.layers.density_prior_box(
                         input,
                         image,
-                        densities=[1, 1],
-                        fixed_sizes=[96, 128],
+                        densities=[2, 1, 1, 1, 1, 1],
+                        fixed_sizes=[32., 48., 64., 80., 96., 128.],
                         fixed_ratios=[1.],
                         clip=False,
                         offset=0.5)
