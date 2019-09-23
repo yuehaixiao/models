@@ -10,8 +10,10 @@ log_smooth_window: 20
 log_iter: 20
 metric: WIDERFACE
 save_dir: output_blazeface_640x640_priorbox_minsize86_190918
-eval_mode: matlab
-multi_scale: true
+eval_mode: python
+multi_scale: false
+#eval_mode: matlab
+#multi_scale: true
 weights: 
 num_classes: 2
 
@@ -55,8 +57,8 @@ BlazeFaceEvalFeed:
   dataset:
     dataset_dir: dataset/wider_face
     annotation: wider_face_split/wider_face_val_bbx_gt.txt
-    #image_dir: ./
-    image_dir: WIDER_val/images
+    image_dir: ./
+    #image_dir: WIDER_val/images
   drop_last: false
 
 BlazeFaceTestFeed:
