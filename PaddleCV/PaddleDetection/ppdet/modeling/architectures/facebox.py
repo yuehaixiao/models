@@ -129,7 +129,7 @@ class FaceBox(object):
                         fixed_ratios=[1.],
                         clip=False,
                         offset=0.5)
-                if i == 1:
+                elif i == 1:
                     box, var = fluid.layers.density_prior_box(
                         input,
                         image,
