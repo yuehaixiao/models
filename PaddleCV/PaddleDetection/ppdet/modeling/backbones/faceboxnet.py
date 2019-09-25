@@ -27,22 +27,23 @@ __all__ = ['FaceBoxNet']
 @register
 class FaceBoxNet(object):
     """
-    FaceBox, see https://https://arxiv.org/abs/1708.05234
+    FaceBoxes, see https://https://arxiv.org/abs/1708.05234
 
     Args:
         with_extra_blocks (bool): whether or not extra blocks should be added
     """
 
-    def __init__(self, with_extra_blocks=True):
+    def __init__(self, with_extra_blocks=True, lite_edition=False):
         super(FaceBoxNet, self).__init__()
 
         self.with_extra_blocks = with_extra_blocks
+        self.lite_edition = lite_edition
 
-    def __call__(self, input, original_edition=True):
-        if original_edition:
-            return self._original_edition(input)
-        else:
+    def __call__(self, input):
+        if self.lite_edition:
             return self._simplified_edition(input)
+        else:
+            return self._original_edition(input)
 
     def _simplified_edition(self, input):
         conv_1_1 = self._conv_norm_crelu(
@@ -132,7 +133,7 @@ class FaceBoxNet(object):
             padding=3,
             act='relu',
             name="conv_1")
-        # TODO to confirm
+
         pool_1 = fluid.layers.pool2d(
             input=conv_1,
             pool_size=3,
@@ -141,7 +142,7 @@ class FaceBoxNet(object):
             pool_type='max',
             name="pool_1")
 
-        conv_2 = self._conv_norm(
+        conv_2 = self._conv_norm_crelu(
             input=pool_1,
             num_filters=64,
             filter_size=5,
@@ -149,7 +150,7 @@ class FaceBoxNet(object):
             padding=2,
             act='relu',
             name="conv_2")
-        # TODO to confirm
+
         pool_2 = fluid.layers.pool2d(
             input=conv_1,
             pool_size=3,
